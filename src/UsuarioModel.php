@@ -33,6 +33,11 @@ class UsuarioModel {
     public function insertCadastro(): bool{
         // Implementar a lógica de inserção do usuário no banco de dados(Cadastro)
 
+        if(!$this->VerificarSenha()){
+            $this->fail = 'As senhas não são iguais';
+            return false;
+        }
+
         if($this->cadastroUnico()){
             $this->fail = 'Alguns dos campos acima já foi cadastrados';
             return false;
@@ -43,14 +48,17 @@ class UsuarioModel {
             return false;
         }
 
+        // Hash da senha antes de armazenar no banco de dados
+        $hashedPassword = password_hash($this->senha, PASSWORD_DEFAULT);
+
         $pdo = Connect::getConection();
-        $res = $pdo->prepare(query: "INSERT INTO". self::ENTIDADE. "(nome,telefone,email,cpf,senha,confirmarSenha) VALUES (:nome,:telefone,:email,:cpf,:senha,:confirmarSenha)");
+        $res = $pdo->prepare(query: "INSERT INTO". self::ENTIDADE. "(nome,telefone,email,cpf,senha,confirmarSenha) VALUES (:nome,:telefone,:email,:cpf,:senha)");
         $res->bindParam(':nome', $this->nome);
         $res->bindParam(':telefone', $this->telefone);
         $res->bindParam(':email', $this->email);
         $res->bindParam(':cpf', $this->cpf);
-        $res->bindParam(':senha', $this->senha);
-        $res->bindParam(':confirmarSenha', $this->confirmarSenha);
+        $res->bindParam(':senha', $hashedPassword);
+        //$res->bindParam(':confirmarSenha', $this->confirmarSenha);
         return $res->execute();
         echo "Usuário inserido com sucesso!";
     }
@@ -75,8 +83,14 @@ class UsuarioModel {
         echo "Login realizado com sucesso!";
     }
 
-    public function VerificarSenha(){
+    public function VerificarSenha(): bool{
         //Implementar a lógica de verificação de senha no banco de dados
+        if($this->senha === $this->confirmarSenha){
+            return true;
+        }else{
+            $this->fail = 'Senhas não coincidem';
+            return false;
+        }
     }
 
     public function VerificarCPF(){
@@ -87,7 +101,7 @@ class UsuarioModel {
     public function cadastroUnico(): bool{
         // Implementar a lógica de verificação se o email e CPF, e outros campos, já estão cadastrados no banco de dados
         $pdo = Connect::getConection();
-        $res = $pdo->prepare("SELECT * FROM ".self::ENTIDADE."WHERE nome = :nome or telefone = :telefone or email = :email, cpf = :cpf or senha = :senha");
+        $res = $pdo->prepare("SELECT * FROM ".self::ENTIDADE."WHERE nome = :nome OR telefone = :telefone OR email = :email, cpf = :cpf OR senha = :senha");
         $res->bindValue(':nome', $this->nome);
         $res->bindValue(':telefone', $this->telefone);
         $res->bindValue(':email', $this->email);

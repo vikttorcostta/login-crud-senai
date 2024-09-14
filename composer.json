@@ -12,5 +12,7 @@
             "name": "Paulo Victor, Davi Ferreira"
         }
     ],
-    "require": {}
+    "require": {
+      "ext-pdo": "*"
+    }
 }

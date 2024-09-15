@@ -1,8 +1,15 @@
 <?php
 
-namespace Senai\CrudPhp\classes;
-require_once 'vendor/autoload.php';
+/**
+ * CURSO TÉCNICO EM DESENVOLVIMENTO DE SISTEMAS
+ * @author paulo.v.melo@ba.estudante.senai.br
+ * @author davi.caridade@ba.estudante.senai.br
+ */
 
+
+namespace Senai\CrudPhp\classes;
+
+require_once 'vendor/autoload.php';
 
 use PDOException;
 use PDO;

@@ -14,6 +14,7 @@ class UsuarioModel
     private bool $confirmarSenha;
     private const ENTIDADE = 'usuario';
     private $fail;
+    private $db;
     
     //private string $password;
     private string $EmailLogin;

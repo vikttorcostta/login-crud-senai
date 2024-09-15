@@ -9,7 +9,6 @@ class UsuarioModel
     private string $nome;
     private string $email;
     private string $telefone;
-<<<<<<<<< Temporary merge branch 1
     private string $cpf;
     private string $senha;
     private bool $confirmarSenha;

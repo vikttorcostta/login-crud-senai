@@ -3,6 +3,7 @@
 namespace Senai\CrudPhp\classes;
 require_once 'vendor/autoload.php';
 
+
 use PDOException;
 use PDO;
 

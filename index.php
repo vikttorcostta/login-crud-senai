@@ -1,3 +1,11 @@
+<?php
+
+require_once 'vendor/autoload.php';
+
+
+?>
+
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -28,7 +36,7 @@
         </form>
 
         <!-- Formulário de Cadastro (inicialmente oculto) -->
-        <form id="registerForm" class="space-y-4 hidden">
+        <form id="registerForm" class="space-y-4 hidden" action="src/configuracoes/processar.php">
             <div>
                 <label for="registerName" class="block mb-1">Nome</label>
                 <input type="text" id="registerName" class="w-full px-3 py-2 border rounded-md" required>
@@ -82,21 +90,21 @@
             loginForm.classList.add('hidden');
         });
 
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            // Aqui você pode adicionar a lógica para processar o login
-            console.log('Login submetido');
-        });
-
-        registerForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            if (validateCPF(cpfInput.value)) {
-                // Aqui você pode adicionar a lógica para processar o cadastro
-                console.log('Cadastro submetido');
-            } else {
-                document.getElementById('cpfError').classList.remove('hidden');
-            }
-        });
+        // loginForm.addEventListener('submit', (e) => {
+        //     e.preventDefault();
+        //     // Aqui você pode adicionar a lógica para processar o login
+        //     console.log('Login submetido');
+        // });
+        //
+        // registerForm.addEventListener('submit', (e) => {
+        //     e.preventDefault();
+        //     if (validateCPF(cpfInput.value)) {
+        //         // Aqui você pode adicionar a lógica para processar o cadastro
+        //         console.log('Cadastro submetido');
+        //     } else {
+        //         document.getElementById('cpfError').classList.remove('hidden');
+        //     }
+        // });
 
         // Máscara para o campo de telefone
         const phoneInput = document.getElementById('registerPhone');

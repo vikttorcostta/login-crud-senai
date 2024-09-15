@@ -1,6 +1,8 @@
 <?php
 
 namespace Senai\CrudPhp\classes;
+require_once 'vendor/autoload.php';
+
 
 use PDOException;
 use PDO;
@@ -30,7 +32,7 @@ class BancoDeDados
         return self::$instance;
     }
 
-    public function getConnection(): ?PDO{
+    public function getConnection(): PDO{
         return $this->pdo;
     }
 

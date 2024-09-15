@@ -8,9 +8,9 @@ class UsuarioModel
 {
     private string $nome;
     private string $email;
-    private int $telefone;
-    private int $cpf;
-    private int $senha;
+    private string $telefone;
+    private string $cpf;
+    private string $senha;
     private bool $confirmarSenha;
     private const ENTIDADE = 'usuario';
     private $fail;          
@@ -46,12 +46,8 @@ class UsuarioModel
         return $res->fetchALL(PDO::FETCH_ASSOC);
     }
 
-    public function login(){
-         // Implementar a lógica de login do usuário no banco de dados
-    }
-
-    public function VerificarSenha(): bool{
-        //Implementar a lógica de verificação de senha no banco de dados
+    public function isConfirmarSenha(): bool{
+        // verifica se o segundo campo de senha corresponde o primeiro campo de senha preenchido
         if($this->senha === $this->confirmarSenha){
             return true;
         }else{
@@ -59,25 +55,25 @@ class UsuarioModel
         }
     }
 
-    public function VerificarCPF(){
-        //Implementar a lógica de verificação de senha no banco
+    public function authCadastro(){
+      // verifica se já existe um usuario cadastrado no banco com os dados inseridos no formulario de cadastro para efetuar a criação
+    }
+
+    public function authLogin(){
+      // verifica se os dados inseridos no formulario de login correspondem com os dados cadastrados no banco para efetuar acesso
+    }
+  
+    public function isCadastro(){
+       // validação dos campos preenchidos no formulario de cadastro
+    }
+
+    public function isLogin(){
+      // validação dos campos preenchidos no formulario de login
+    }
+ 
+    public function isCPF(){
+        // validação do campo de cpf
         return true;
-    }
-
-    public function cadastrounico(){
-
-    }
-
-    public function checando(){
-
-    }
-
-    public function LoginUnico(){
-
-    }
-
-    public function checandoLogin(){
-
     }
 
 }

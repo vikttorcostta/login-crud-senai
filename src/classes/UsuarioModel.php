@@ -8,9 +8,9 @@ class UsuarioModel
 {
     private string $nome;
     private string $email;
-    private int $telefone;
-    private int $cpf;
-    private int $senha;
+    private string $telefone;
+    private string $cpf;
+    private string $senha;
     private bool $confirmarSenha;
     private const ENTIDADE = 'usuario';
     private $fail;

@@ -159,7 +159,7 @@ class UsuarioModel
 
     public function checandoLogin(){
         // Impede o usuario de deixar algum campo vazio na hora do login
-        if(empty($this->Email) > 45 || empty($this->senhaLogin) > 45){
+        if(empty($this->Email)  || empty($this->senhaLogin) ){
             return true;
         }
         return false;

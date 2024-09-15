@@ -162,6 +162,7 @@ class UsuarioModel
         }
         if(strlen(string: $this->EmailLogin) || strlen(string: $this->senha)){
             return true;
+            return false;
         }
         return false;
     }

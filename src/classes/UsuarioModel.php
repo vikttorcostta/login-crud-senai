@@ -8,23 +8,46 @@ class UsuarioModel
 {
     private string $nome;
     private string $email;
-    private string $telefone;
-    private string $cpf;
-    private string $senha;
+    private int $telefone;
+    private int $cpf;
+    private int $senha;
     private bool $confirmarSenha;
     private const ENTIDADE = 'usuario';
-    private $fail;          
+    private $fail;
+    
+    //private string $password;
+    private string $EmailLogin;
 
-    public function __construct(string $nome = null, string $email = null, int $telefone = null, int $cpf = null, int $senha = null){
+    public function __construct(string $nome = null, string $email = null, string $telefone = null, int $cpf = null, string $senha = null,string $EmailLogin = null, string $confirmarSenha = null){
         $this->nome = $nome;
         $this->email = $email;
         $this->telefone = $telefone;
         $this->cpf = $cpf;
         $this->senha = $senha;
+        //$this->password = $password;
+        $this->EmailLogin = $EmailLogin;
+        $this->confirmarSenha = $confirmarSenha;
     }
 
     public function insertCadastro(): bool{
         // Implementar a lógica de inserção do usuário no banco de dados(Cadastro)
+
+        if(!$this->checando()){
+            $this->fail = 'Necessario preencher todos os campos acima';
+            return false;
+        }
+
+        if(!$this->VerificarSenha()){
+            //$this->fail;
+            return false;
+        }
+
+        if(!$this->cadastrounico()){
+            $this->fail = 'Alguns Campos acima não foram cadastrados';
+            return false;
+        }
+
+       
 
         //Hash da senha antes de armazenar no banco de dados
         $hashedPassword = password_hash($this->senha, PASSWORD_DEFAULT);
@@ -46,34 +69,39 @@ class UsuarioModel
         return $res->fetchALL(PDO::FETCH_ASSOC);
     }
 
-    public function isConfirmarSenha(): bool{
-        // verifica se o segundo campo de senha corresponde o primeiro campo de senha preenchido
+    public function login(){
+         // Implementar a lógica de login do usuário no banco de dados
+    }
+
+    public function VerificarSenha(): bool{
+        //Implementar a lógica de verificação de senha no banco de dados
         if($this->senha === $this->confirmarSenha){
             return true;
         }else{
+            $this->fail = "Senhas não conferem!";
             return false;
         }
     }
 
-    public function authCadastro(){
-      // verifica se já existe um usuario cadastrado no banco com os dados inseridos no formulario de cadastro para efetuar a criação
-    }
-
-    public function authLogin(){
-      // verifica se os dados inseridos no formulario de login correspondem com os dados cadastrados no banco para efetuar acesso
-    }
-  
-    public function isCadastro(){
-       // validação dos campos preenchidos no formulario de cadastro
-    }
-
-    public function isLogin(){
-      // validação dos campos preenchidos no formulario de login
-    }
- 
-    public function isCPF(){
-        // validação do campo de cpf
+    public function VerificarCPF(){
+        //Implementar a lógica de verificação de senha no banco
         return true;
+    }
+
+    public function cadastrounico(){
+
+    }
+
+    public function checando(){
+
+    }
+
+    public function LoginUnico(){
+
+    }
+
+    public function checandoLogin(){
+
     }
 
 }

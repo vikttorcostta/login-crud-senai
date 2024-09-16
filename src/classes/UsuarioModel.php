@@ -11,7 +11,7 @@ class UsuarioModel
     private string $telefone;
     private string $cpf;
     private string $senha;
-    private bool $confirmarSenha;
+    private string $confirmarSenha;
     private const ENTIDADE = 'usuario';
     private $fail;
     

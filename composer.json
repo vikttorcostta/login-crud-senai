@@ -1,0 +1,18 @@
+{
+    "name": "senai/crud-php",
+    "description": "Atividade pontuada, da disciplina de Desenvolvimento de Sistemas, do Curso Técnico em Desenvolvimento de Sistemas, no SENAI - BA",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Senai\\CrudPhp\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Paulo Victor, Davi Ferreira"
+        }
+    ],
+    "require": {
+      "ext-pdo": "*"
+    }
+}

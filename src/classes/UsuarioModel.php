@@ -1,12 +1,7 @@
 <?php
 
-/**
- * CURSO TÉCNICO EM DESENVOLVIMENTO DE SISTEMAS
- * @author paulo.v.melo@ba.estudante.senai.br
- * @author davi.caridade@ba.estudante.senai.br
- */
-
 namespace Senai\CrudPhp\classes;
+
 use PDO;
 
 class UsuarioModel
@@ -16,137 +11,69 @@ class UsuarioModel
     private string $telefone;
     private string $cpf;
     private string $senha;
-    private const string ENTIDADE = 'usuario';
-    private PDO $connection;
+    private bool $confirmarSenha;
+    private const ENTIDADE = 'usuario';
+    private $fail;          
 
-    public function __construct(){
-
-       $this->connection = BancoDeDados::getInstance()->getConnection();
-
+    public function __construct(string $nome = null, string $email = null, int $telefone = null, int $cpf = null, int $senha = null){
+        $this->nome = $nome;
+        $this->email = $email;
+        $this->telefone = $telefone;
+        $this->cpf = $cpf;
+        $this->senha = $senha;
     }
 
-    public function cadastrar(string $nome, string $email, string $telefone, string $cpf, string $senha): bool{
+    public function insertCadastro(): bool{
+        // Implementar a lógica de inserção do usuário no banco de dados(Cadastro)
 
-        $senhaHasheada = $this->senha = password_hash($this->senha, PASSWORD_DEFAULT);
+        //Hash da senha antes de armazenar no banco de dados
+        $hashedPassword = password_hash($this->senha, PASSWORD_DEFAULT);
 
-        $pdo = "INSERT INTO " .self::ENTIDADE ."(nome, email, telefone, cpf, senha)" . "VALUES(:nome, :email, :telefone, :cpf, :senha)";
-        $estado = $this->connection->prepare($pdo);
-        $estado->bindParam(':nome', $this->nome);
-        $estado->bindParam(':email', $this->email);
-        $estado->bindParam(':telefone', $this->telefone);
-        $estado->bindParam(':cpf', $this->cpf);
-        $estado->bindParam(':senha', $senhaHasheada);
-        return $estado->execute();
+        $pdo = BancoDeDados::__construct();
+        $res = $pdo->prepare("INSERT INTO " . self::ENTIDADE . " (nome, telefone, email, cpf, senha) VALUES (:nome, :telefone, :email, :cpf, :senha)");
+        $res->bindParam(':nome', $this->nome);
+        $res->bindParam(':telefone', $this->telefone);
+        $res->bindParam(':email', $this->email);
+        $res->bindParam(':cpf', $this->cpf);
+        $res->bindParam(':senha', $hashedPassword);
+        return $res->execute();
     }
 
-    /** LISTAGEM DE USUÁRIOS
-     * @return array
-     */
-    public function listar(): array {
-        $pdo = "SELECT * FROM " . self::ENTIDADE;
-        $estado = $this->connection->prepare($pdo);
-        $estado->execute();
-        return $estado->fetchAll();
+    public static function listar(): array {
+         // Implementar a lógica de listagem dos usuários no banco dedados
+        $pdo = BancoDeDados::__construct();
+        $res = $pdo->query("SELECT * FROM". self::ENTIDADE);
+        return $res->fetchALL(PDO::FETCH_ASSOC);
     }
 
-    /** AUTENTICAÇÃO DE CADASTRO
-     * @return bool
-     */
-    public function authCadastro(): bool
-    {
-        $pdo = "SELECT email FROM " . self::ENTIDADE . "WHERE email = :email";
-        $estado = $this->connection->prepare($pdo);
-        $estado->bindParam(':email', $this->email);
-        $estado->execute();
-        if($estado->rowCount() > 0)return true;
-        return false;
-    }
-
-    /** AUTENTICAÇÃO DE USUÁRIO
-     * @return bool
-     */
-    public function authLogin(): bool
-    {
-        $pdo = "SELECT email, senha FROM " . self::ENTIDADE . " WHERE email = :email";
-        $estado = $this->connection->prepare($pdo);
-        $estado->bindParam(':email', $this->email);
-        $estado->execute();
-
-        if ($estado->rowCount() > 0) {
-            $usuario = $estado->fetch(PDO::FETCH_ASSOC);
-            if(password_verify($this->senha, $usuario['senha'])) return true;
+    public function isConfirmarSenha(): bool{
+        // verifica se o segundo campo de senha corresponde o primeiro campo de senha preenchido
+        if($this->senha === $this->confirmarSenha){
+            return true;
+        }else{
+            return false;
         }
-        return false;
     }
 
-    /** VALIDAÇÃO DOS CAMPOS DE CADASTRO
-     * @param string $nome
-     * @param string $email
-     * @param string $telefone
-     * @param string $cpf
-     * @param string $senha
-     * @param string $confirmarSenha
-     * @return bool
-     */
-    public function isCadastro(string $nome, string $email, string $telefone, string $cpf, string $senha, string $confirmarSenha): bool
-    {
+    public function authCadastro(){
+      // verifica se já existe um usuario cadastrado no banco com os dados inseridos no formulario de cadastro para efetuar a criação
+    }
+
+    public function authLogin(){
+      // verifica se os dados inseridos no formulario de login correspondem com os dados cadastrados no banco para efetuar acesso
+    }
+  
+    public function isCadastro(){
+       // validação dos campos preenchidos no formulario de cadastro
+    }
+
+    public function isLogin(){
+      // validação dos campos preenchidos no formulario de login
+    }
+ 
+    public function isCPF(){
+        // validação do campo de cpf
         return true;
     }
 
-    /** VALIDAÇÃO DOS CAMPOS DE LOGIN
-     * @return bool
-     */
-    public function isLogin(): bool
-    {
-        return $this->isConfirmarSenha();
-    }
-
-    /** VALIDAÇÃO DA CONFIRMAÇÃO DE SENHA
-     * @param string $confirmarSenha
-     * @return bool
-     */
-    public function isConfirmarSenha(string $confirmarSenha): bool
-    {
-        return $this->senha === $confirmarSenha;
-    }
-
-    /** VALIDAÇÃO E LIMPEZA DE NOME
-     * @return bool
-     */
-    public function isNome(): bool
-    {
-        return true;
-    }
-
-    /** VALIDAÇÃO E LIMPEZA DO CPF
-     * @return bool
-     */
-    public function isCPF(): bool
-    {
-        return true;
-    }
-
-    /** VALIDAÇÃO E LIMPEZA DE TELEFONE
-     * @return bool
-     */
-    public function isTelefone(): bool
-    {
-        return true;
-    }
-
-    /** VALIDAÇÃO E LIMPEZA DE E-MAIL
-     * @return bool
-     */
-    public function isEmail(): bool
-    {
-        return true;
-    }
-
-    /** VALIDAÇÃO E LIMPEZA DE SENHA
-     * @return bool
-     */
-    public function isSenha(): bool
-    {
-        return true;
-    }
 }

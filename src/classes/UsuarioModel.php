@@ -11,7 +11,7 @@ class UsuarioModel
     private string $telefone;
     private string $cpf;
     private string $senha;
-    private bool $confirmarSenha;
+    private string $confirmarSenha;
     private const ENTIDADE = 'usuario';
     private $fail;
     private $db;
@@ -19,7 +19,7 @@ class UsuarioModel
     //private string $password;
     private string $EmailLogin;
 
-    public function __construct(string $nome = null, string $email = null, string $telefone = null, int $cpf = null, string $senha = null,string $EmailLogin = null){
+    public function __construct(string $nome = null, string $email = null, string $telefone = null, int $cpf = null, string $senha = null,string $EmailLogin = null, string $confirmarSenha = null){
         
         $this->nome = $nome;
         $this->email = $email;
@@ -28,7 +28,7 @@ class UsuarioModel
         $this->senha = $senha;
         //$this->password = $password;
         $this->EmailLogin = $EmailLogin;
-        //$this->confirmarSenha = $confirmarSenha;
+        $this->confirmarSenha = $confirmarSenha;
     }
 
     public function insertCadastro(): bool{

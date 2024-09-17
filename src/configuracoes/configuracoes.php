@@ -6,12 +6,18 @@
  * @author davi.caridade@ba.estudante.senai.br
  */
 
-const DBNAME = 'crudLoginPHP';
+
+/**
+ * CONFIGURAÇÕES DO BANCO DE DADOS
+ */
+const DBNAME = 'crudloginphp';
 const HOSTNAME = 'localhost';
 const USERNAME = 'root';
 const PASSWORD = '';
 
-
+/**
+ * OUTRAS CONFIGURAÇÕES
+ */
 
 
 

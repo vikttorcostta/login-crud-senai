@@ -8,5 +8,5 @@ create table usuario (
     telefone varchar(11) not null unique,
     email varchar(255) not null unique,
     cpf varchar(11) not null unique,
-    senha varchar(255) not null,
+    senha varchar(255) not null
 );

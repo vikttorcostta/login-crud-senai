@@ -1,3 +1,8 @@
+<?php
+require_once __DIR__ . '/../../vendor/autoload.php';
+?>
+
+
 <html><head><base href="https://github.com/websim-creation-engine/" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

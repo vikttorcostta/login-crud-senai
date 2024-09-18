@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../../vendor/autoload.php';
+
 /**
  * CURSO TÉCNICO EM DESENVOLVIMENTO DE SISTEMAS
  * @author paulo.v.melo@ba.estudante.senai.br

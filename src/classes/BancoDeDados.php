@@ -9,41 +9,58 @@
 
 namespace Senai\CrudPhp\classes;
 
-require_once 'vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../configuracoes/configuracoes.php';
+require_once __DIR__ . '/../classes/UsuarioModel.php';
 
 use PDOException;
 use PDO;
 
+
 class BancoDeDados
 {
+
     private string $database = DBNAME;
-    private string $hostname = HOSTNAME;
+    private string $servername = HOSTNAME;
     private string $username = USERNAME;
     private string $password = PASSWORD;
     private static ?self $instance = null;
-    private PDO $pdo;
+    private PDO $connection;
 
-    private function __construct(){
+
+    private function __construct()
+    {
+
         try {
-            $this->pdo = new PDO("mysql:host=$this->hostname;dbname=$this->database", $this->username, $this->password);
-            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo "Banco conectado";
-        }catch (PDOException $e){
-            echo "Erro ao conectar banco de dados" . $e->getMessage();
+            $this->connection = new PDO("mysql:host=$this->servername;dbname=$this->database", $this->username, $this->password);
+            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            //echo "Banco de dados conectado com sucesso!";
+            var_dump($this->connection);
+        } catch (PDOException $e) {
+            echo "Erro ao conectar ao banco de dados: " . $e->getMessage();
         }
     }
-    public static function getInstance(): self{
-        if(self::$instance == null){
-            self::$instance = new self();
+
+    public static function getInstance(): BancoDeDados
+    {
+
+        if (self::$instance === null) {
+
+            self::$instance = new BancoDeDados();
         }
+
         return self::$instance;
     }
 
-    public function getConnection(): PDO{
-        return $this->pdo;
+    public function getConnection(): PDO
+    {
+
+        return $this->connection;
+
     }
 
-    private function __clone(){
+    private function __clone()
+    {
 
     }
 }

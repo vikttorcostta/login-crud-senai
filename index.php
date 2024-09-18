@@ -1,7 +1,8 @@
 <?php
 
-require_once 'vendor/autoload.php';
-
+require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/src/classes/UsuarioModel.php';
+require_once __DIR__ . '/src/classes/BancoDeDados.php';
 
 ?>
 
@@ -26,41 +27,40 @@ require_once 'vendor/autoload.php';
         <form id="loginForm" class="space-y-4">
             <div>
                 <label for="loginEmail" class="block mb-1">Email</label>
-                <input type="email" id="loginEmail" class="w-full px-3 py-2 border rounded-md" required>
+                <input type="email" id="loginEmail" class="w-full px-3 py-2 border rounded-md" name="email" required>
             </div>
             <div>
                 <label for="loginPassword" class="block mb-1">Senha</label>
-                <input type="password" id="loginPassword" class="w-full px-3 py-2 border rounded-md" required>
+                <input type="password" id="loginPassword" class="w-full px-3 py-2 border rounded-md" name="senha" required>
             </div>
             <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">Entrar</button>
         </form>
 
         <!-- Formulário de Cadastro (inicialmente oculto) -->
-        <form id="registerForm" class="space-y-4 hidden" action="src/configuracoes/processar.php">
+        <form id="registerForm" class="space-y-4 hidden" action="/src/configuracoes/processar.php" method="POST">
             <div>
                 <label for="registerName" class="block mb-1">Nome</label>
-                <input type="text" id="registerName" class="w-full px-3 py-2 border rounded-md" required>
+                <input type="text" id="registerName" class="w-full px-3 py-2 border rounded-md" name="nome" required>
             </div>
             <div>
                 <label for="registerEmail" class="block mb-1">Email</label>
-                <input type="email" id="registerEmail" class="w-full px-3 py-2 border rounded-md" required>
+                <input type="email" id="registerEmail" class="w-full px-3 py-2 border rounded-md" name="email" required>
             </div>
             <div>
                 <label for="registerPhone" class="block mb-1">Telefone</label>
-                <input type="tel" id="registerPhone" class="w-full px-3 py-2 border rounded-md" required>
+                <input type="tel" id="registerPhone" class="w-full px-3 py-2 border rounded-md" name="telefone" required>
             </div>
             <div>
                 <label for="registerCPF" class="block mb-1">CPF</label>
-                <input type="text" id="registerCPF" class="w-full px-3 py-2 border rounded-md" required>
-                <p id="cpfError" class="text-red-500 text-sm mt-1 hidden">CPF inválido</p>
+                <input type="text" id="registerCPF" class="w-full px-3 py-2 border rounded-md" name="cpf" required>
             </div>
             <div>
                 <label for="registerPassword" class="block mb-1">Senha</label>
-                <input type="password" id="registerPassword" class="w-full px-3 py-2 border rounded-md" required>
+                <input type="password" id="registerPassword" class="w-full px-3 py-2 border rounded-md" name="senha" required>
             </div>
             <div>
                 <label for="confirmPassword" class="block mb-1">Confirmar Senha</label>
-                <input type="password" id="confirmPassword" class="w-full px-3 py-2 border rounded-md" required>
+                <input type="password" id="confirmPassword" class="w-full px-3 py-2 border rounded-md" name="confirmarSenha" required>
             </div>
             <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">Cadastrar</button>
         </form>

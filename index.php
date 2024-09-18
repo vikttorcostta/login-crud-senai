@@ -1,8 +1,7 @@
 <?php
 
-require_once __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . '/src/classes/UsuarioModel.php';
-require_once __DIR__ . '/src/classes/BancoDeDados.php';
+require_once './src/classes/UsuarioModel.php';
+require_once './src/classes/BancoDeDados.php';
 
 ?>
 

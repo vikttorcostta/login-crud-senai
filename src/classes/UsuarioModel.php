@@ -6,11 +6,14 @@
  * @author davi.caridade@ba.estudante.senai.br
  */
 
-namespace Senai\CrudPhp\classes;
-use PDO;
-use Senai\CrudPhp\classes\BancoDeDados;
+namespace UsuarioModel;
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+require_once 'BancoDeDados.php';
+
+use BancoDeDados\BancoDeDados;
+use PDO;
+
+
 
 class UsuarioModel
 {
@@ -19,7 +22,7 @@ class UsuarioModel
     private string $telefone;
     private string $cpf;
     private string $senha;
-    private const string ENTIDADE = 'usuario';
+    private const ENTIDADE = 'usuario';
     private PDO $connection;
 
     public function __construct(){

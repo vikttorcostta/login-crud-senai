@@ -5,10 +5,12 @@
  * @author paulo.v.melo@ba.estudante.senai.br
  * @author davi.caridade@ba.estudante.senai.br
  */
-require_once __DIR__ . '/../../vendor/autoload.php';
 
-use Senai\CrudPhp\classes\UsuarioModel;
-use Senai\CrudPhp\classes\BancoDeDados;
+ require_once './src/classes/BancoDeDados.php';
+ require_once './src/classes/UsuarioModel.php';
+
+use UsuarioModel\UsuarioModel;
+
 
 
 /**

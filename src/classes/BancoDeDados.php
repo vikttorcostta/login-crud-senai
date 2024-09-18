@@ -7,11 +7,11 @@
  */
 
 
-namespace Senai\CrudPhp\classes;
+namespace BancoDeDados;
 
-require_once __DIR__ . '/../../vendor/autoload.php';
-require_once __DIR__ . '/../configuracoes/configuracoes.php';
-require_once __DIR__ . '/../classes/UsuarioModel.php';
+require_once './src/configuracoes/configuracoes.php';
+require_once './src/classes/UsuarioModel.php';
+
 
 use PDOException;
 use PDO;
